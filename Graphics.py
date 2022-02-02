@@ -133,7 +133,10 @@ def startGame(gameInstance: Game):
                     vertical = pos[1]
                     column = (pos[0] - 4) // (WIDTH + MARGIN)
                     row = (pos[1] - 100) // (HEIGHT + MARGIN)
-                    print(horizontal, vertical)
+                    #print(horizontal, vertical)
+
+                    if gameInstance.checkLose() == True:
+                        done = True
 
                     chosen = False
                     if chosen == False:
@@ -153,14 +156,11 @@ def startGame(gameInstance: Game):
                             print("Selected 2")
                             chosen = True
                     if vertical < 516:
-                        print("TRYING TO PLACE", id, "AT", row, column)
                         gameInstance.place(id,(row,column))
                         gameInstance.possibleMoves.remove(id)
                         if len(gameInstance.possibleMoves) == 0:
                             gameInstance.updateMoves()
                         gameInstance.update()
-                        #gameInstance.move(id, (row, column))
-                        print(gameInstance)
                     placeOptions(gameInstance)
                     # pos = pygame.mouse.get_pos()
                     # column = (pos[0] - 4) // (WIDTH + MARGIN)
@@ -177,8 +177,6 @@ def startGame(gameInstance: Game):
         for row in range(10):
             for column in range(10):
                 color = WHITE
-                print(type(gameInstance.getBoard()))
-                print('board = ', gameInstance.getBoard())
                 if gameInstance.checkIndex(row, column) == 1.0:
                     color = GREEN
                 pygame.draw.rect(screen,

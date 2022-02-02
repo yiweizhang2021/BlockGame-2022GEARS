@@ -19,7 +19,6 @@ class GameBoard:
     def __getitem__(self, point):
         x = point[0]
         y = point[1]
-        print(self.board[0][1])
         return self.board[x][y]
     def __setitem__(self, key, value):
         x,y = key
