@@ -14,8 +14,12 @@ class GameBoard:
             tempString += "\n"
             fullString += tempString
         return fullString
-    def __getitem__(self, tup):
-        x, y = tup
+    def getTest(self,x,y):
+        return self.board[x][y]
+    def __getitem__(self, point):
+        x = point[0]
+        y = point[1]
+        print(self.board[0][1])
         return self.board[x][y]
     def __setitem__(self, key, value):
         x,y = key
@@ -72,13 +76,15 @@ class GameBoard:
         else:
             self.score += count * 10
         # Removes the entries from the rows after scoring
-        for i in range(len(fullRows)):
-            for j in range(10):
-                self.board[i][j] = 0
-        for i in range(len(fullColumns)):
-            for j in range(10):
-                self.board[j][i] = 0
-        return self.score
+        if len(fullRows) != 0:
+            for i in range(len(fullRows)):
+                for j in range(10):
+                    self.board[i][j] = 0
+        if len(fullColumns) != 0:
+            for i in range(len(fullColumns)):
+                for j in range(10):
+                    self.board[j][i] = 0
+        return self
     def getBoard(self):
         return self.board
     def getScore(self):

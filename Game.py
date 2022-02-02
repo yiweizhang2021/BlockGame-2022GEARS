@@ -13,6 +13,10 @@ class Game:
         self.board[x,y] = value
     def __str__(self):
         return str(self.board)
+    def checkIndex(self, x, y):
+        return self.board[x,y]
+    def getBoard(self):
+        return self.board
     def getMoveIDs(self):
         return self.possibleMoves
     def checkLose(self):

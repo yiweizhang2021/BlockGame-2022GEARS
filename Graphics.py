@@ -162,7 +162,9 @@ def startGame(gameInstance: Game):
         for row in range(10):
             for column in range(10):
                 color = WHITE
-                if gameInstance[row, column] == 1:
+                print(type(gameInstance.getBoard()))
+                print('board = ', gameInstance.getBoard())
+                if gameInstance.checkIndex(row, column) == 1.0:
                     color = GREEN
                 pygame.draw.rect(screen,
                                  color,
