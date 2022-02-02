@@ -108,6 +108,18 @@ def startGame(gameInstance: Game):
 
     close = pygame.time.Clock()
 
+    # Display score
+    font = pygame.font.Font('freesansbold.ttf', 32)
+
+    text = font.render('Score: 0', True, GREEN, WHITE)
+
+    # create a rectangular object for the
+    # text surface object
+    textRect = text.get_rect()
+
+    # set the center of the rectangular object.
+    textRect.center = (WINDOW_SIZE[0] // 2, 75)
+
     while not done:
         #selected = False
         for event in pygame.event.get():
@@ -159,6 +171,9 @@ def startGame(gameInstance: Game):
                     continue
 
         screen.fill(BLACK)
+        scoreText = str(gameInstance.getBoard().getScore())
+        text = font.render('Score: ' + scoreText, True, GREEN, WHITE)
+        screen.blit(text, textRect)
         for row in range(10):
             for column in range(10):
                 color = WHITE

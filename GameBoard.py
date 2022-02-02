@@ -77,11 +77,11 @@ class GameBoard:
             self.score += count * 10
         # Removes the entries from the rows after scoring
         if len(fullRows) != 0:
-            for i in range(len(fullRows)):
+            for i in fullRows:
                 for j in range(10):
                     self.board[i][j] = 0
         if len(fullColumns) != 0:
-            for i in range(len(fullColumns)):
+            for i in fullColumns:
                 for j in range(10):
                     self.board[j][i] = 0
         return self
