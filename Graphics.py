@@ -156,7 +156,7 @@ def startGame(gameInstance: Game):
                             chosen = True
                     if vertical < 516:
                         print(gameInstance.possibleMoves, id)
-                        if gameInstance.place(id,(row,column)):
+                        if gameInstance.place(id,(row,column)) and id in gameInstance.possibleMoves:
                             gameInstance.possibleMoves.remove(id)
                             id == None
                         if len(gameInstance.possibleMoves) == 0:
