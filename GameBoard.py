@@ -457,7 +457,7 @@ class GameBoard:
                 self.board[i+middle[0]][j+middle[1]] = 1.0
         self.score +=9
         self.updateBoard()
-        return self.board
+        return True
     def twoByTwo(self, middle):
         for i in range(-1,1):
             for j in range(-1,1):
@@ -472,7 +472,7 @@ class GameBoard:
                 self.board[i+middle[0]][j+middle[1]] = 1.0
         self.score +=4
         self.updateBoard()
-        return self.board
+        return True
     def twoByOne(self, middle):
         for i in range(-1,1):
             if middle[0] + i not in range(0,10):
@@ -485,7 +485,7 @@ class GameBoard:
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 2
         self.updateBoard()
-        return self.board
+        return True
     def threeByOne(self, middle):
         for i in range(-1,2):
             if middle[0] + i not in range(0,10):
@@ -498,7 +498,7 @@ class GameBoard:
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def fourByOne(self, middle):
         for i in range(-2,2):
             if middle[0] + i not in range(0,10):
@@ -511,7 +511,7 @@ class GameBoard:
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 4
         self.updateBoard()
-        return self.board
+        return True
     def fiveByOne(self, middle):
         for i in range(-2,3):
             if middle[0] + i not in range(0,10):
@@ -524,14 +524,14 @@ class GameBoard:
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
     def oneByOne(self, middle):
         if self.board[middle[0]][middle[1]] != 0.0:
             return False
         self.board[middle[0]][middle[1]] = 1.0
         self.score += 1
         self.updateBoard()
-        return self.board
+        return True
     def oneByTwo(self, middle):
         for i in range(-1,1):
             if middle[1] + i not in range(0,10):
@@ -544,7 +544,7 @@ class GameBoard:
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 2
         self.updateBoard()
-        return self.board
+        return True
     def oneByThree(self, middle):
         for i in range(-1,2):
             if middle[1] + i not in range(0,10):
@@ -557,7 +557,7 @@ class GameBoard:
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def oneByFour(self, middle):
         for i in range(-2,2):
             if middle[1] + i not in range(0,10):
@@ -570,7 +570,7 @@ class GameBoard:
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 4
         self.updateBoard()
-        return self.board
+        return True
     def oneByFive(self, middle):
         for i in range(-2,3):
             if middle[1] + i not in range(0,10):
@@ -583,7 +583,7 @@ class GameBoard:
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
     def step1(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -604,7 +604,7 @@ class GameBoard:
             self.board[x][y + 1] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def step2(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -625,7 +625,7 @@ class GameBoard:
             self.board[x][y + 1] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def step3(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -646,7 +646,7 @@ class GameBoard:
             self.board[x][y - 1] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def step4(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -667,7 +667,7 @@ class GameBoard:
             self.board[x][y - 1] = 1.0
         self.score += 3
         self.updateBoard()
-        return self.board
+        return True
     def l1(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -691,7 +691,7 @@ class GameBoard:
             self.board[x][y + 2] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
     def l2(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -715,7 +715,7 @@ class GameBoard:
             self.board[x][y + 2] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
     def l3(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -739,7 +739,7 @@ class GameBoard:
             self.board[x][y - 2] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
     def l4(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -763,7 +763,7 @@ class GameBoard:
             self.board[x][y - 2] = 1.0
         self.score += 5
         self.updateBoard()
-        return self.board
+        return True
 
 
 

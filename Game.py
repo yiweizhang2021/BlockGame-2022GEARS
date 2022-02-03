@@ -102,10 +102,10 @@ class Game:
                         if tempResult:
                             entryResult = True
             results.append(entryResult)
-        if False in results:
-            return True
-        else:
+        if True in results:
             return False
+        else:
+            return True
     def printBoard(self):
         print(self.board)
 
@@ -158,30 +158,17 @@ class Game:
         if self.checkLose() == True:
             print("You have lost!")
             return
-
-        print("Moves:", self.getMoves())
         self.board.printBoard()
         if id not in self.possibleMoves:
             return
-            #print("Invalid block! Try again")
-            #self.move()
-        #x = int(input("Which row would you like to place this block on (The middle of the block)? "))
-        #y = int(input("Which column would you like to place this block on (The middle of the block)? "))
         if x not in range(0,10) or y not in range(0,10):
             print("\nOut of range! Try again.\n")
-            #self.move()
-        formattedLocation = (x,y)
         self = self.place(id,tup)
-        # if isinstance(result, bool):
-        #     if result == False:
-        #         print("\nUnable to place that here! Try again.\n")
-                #self.move()
         self.possibleMoves.remove(id)
         if len(self.possibleMoves) == 0:
             self.possibleMoves = [random.randint(0,18), random.randint(0,18), random.randint(0,18)]
         self.board.updateBoard()
         self.getMoves()
-        #self.move()
     def updateMoves(self):
         self.possibleMoves = [random.randint(0,18), random.randint(0,18), random.randint(0,18)]
     def update(self):

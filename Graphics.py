@@ -135,8 +135,7 @@ def startGame(gameInstance: Game):
                     row = (pos[1] - 100) // (HEIGHT + MARGIN)
                     #print(horizontal, vertical)
 
-                    if gameInstance.checkLose() == True:
-                        done = True
+
 
                     chosen = False
                     if chosen == False:
@@ -156,17 +155,22 @@ def startGame(gameInstance: Game):
                             print("Selected 2")
                             chosen = True
                     if vertical < 516:
-                        gameInstance.place(id,(row,column))
-                        gameInstance.possibleMoves.remove(id)
+                        print(gameInstance.possibleMoves, id)
+                        if gameInstance.place(id,(row,column)):
+                            gameInstance.possibleMoves.remove(id)
+                            id == None
                         if len(gameInstance.possibleMoves) == 0:
                             gameInstance.updateMoves()
+                            id = None
                         gameInstance.update()
+                    if gameInstance.checkLose() == True:
+                        print("You have lost!")
+                        done = True
                     placeOptions(gameInstance)
                     # pos = pygame.mouse.get_pos()
                     # column = (pos[0] - 4) // (WIDTH + MARGIN)
                     # row = (pos[1] - 100) // (HEIGHT + MARGIN)
                     #gameInstance[row,column] = 1
-                    print("Click ", pos, "Grid coordinates: ", row, column)
                 except IndexError:
                     continue
 
