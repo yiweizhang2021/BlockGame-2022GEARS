@@ -198,6 +198,8 @@ def startGame(gameInstance: Game):
                 color = WHITE
                 if moveGrids[0][row][column] == 1:
                     color = GREEN
+                if row == 2 and column == 2:
+                    color = RED
                 pygame.draw.rect(screen,
                                  color,
                                  [(MARGIN1 + WIDTH1) * column + MARGIN1 + 4,
@@ -212,6 +214,8 @@ def startGame(gameInstance: Game):
                 color = WHITE
                 if moveGrids[1][row][column] == 1:
                     color = GREEN
+                if row == 2 and column == 2 and len(gameInstance.getMoveIDs()) >= 2:
+                    color = RED
                 pygame.draw.rect(screen,
                                  color,
                                  [(MARGIN2 + WIDTH2) * column + MARGIN2 + 149,
@@ -226,6 +230,8 @@ def startGame(gameInstance: Game):
                 color = WHITE
                 if moveGrids[2][row][column] == 1:
                     color = GREEN
+                if row == 2 and column == 2 and len(gameInstance.getMoveIDs()) >= 3:
+                    color = RED
                 pygame.draw.rect(screen,
                                  color,
                                  [(MARGIN3 + WIDTH3) * column + MARGIN3 + 294,
