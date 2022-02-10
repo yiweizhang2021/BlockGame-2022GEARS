@@ -1078,6 +1078,26 @@ class GameBoard:
                     if counter > max:
                         max = counter
         return max
+    def totalSquares(self):
+        return int(self.board.sum())
+    def emptyRows(self):
+        count = 0
+        for i in range(10):
+            for j in range(10):
+                if self.board[i][j] == 1.0:
+                    break
+                elif j == 9:
+                    count+=1
+        return count
+    def emptyColumns(self):
+        count = 0
+        for i in range(10):
+            for j in range(10):
+                if self.board[j][i] == 1.0:
+                    break
+                elif j == 9:
+                    count+=1
+        return count
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))
@@ -1094,10 +1114,12 @@ def main():
     print(board.getScore())
     board.updateBoard()
     print(board)
-    print(board.getScore())
-    print(board.orphanSquares())
-    print(board.maxHorizontal())
-    print(board.maxVertical())
+    print("Total orphan squares:",board.orphanSquares())
+    print("Maximum horizontal space:",board.maxHorizontal())
+    print("Maximum vertical space:",board.maxVertical())
+    print("Total squares:",board.totalSquares())
+    print("Empty rows:",board.emptyRows())
+    print("Empty columns:",board.emptyColumns())
 
 if __name__ == "__main__":
     main()
