@@ -1014,6 +1014,70 @@ class GameBoard:
                 return True
         except IndexError:
             return
+
+    # Features are below
+    def orphanSquares(self):
+        count = 0
+        for i in range(10):
+            for j in range(10):
+                rightSide = False
+                leftSide = False
+                top = False
+                bottom = False
+                if i-1 < 0:
+                    top = True
+                if i+1 > 9:
+                    bottom = True
+                if j - 1 < 0:
+                    leftSide = True
+                if j + 1 > 9:
+                    rightSide = True
+                if top and leftSide:
+                    if self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
+                        count+=1
+                elif top and rightSide:
+                    if self.board[i + 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
+                        count+=1
+                elif bottom and leftSide:
+                    if self.board[i - 1][j] == 1.0 and self.board[i][j + 1] == 1.0:
+                        count+=1
+                elif bottom and rightSide:
+                    if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
+                        count+=1
+                else:
+                    if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0 and self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
+                        count+=1
+        return count
+    def maxHorizontal(self):
+        max = 0
+        for i in range(10):
+            counter = 0
+            for j in range(10):
+                if self.board[i][j] == 0.0:
+                    counter+=1
+                else:
+                    if counter > max:
+                        max = counter
+                    counter = 0
+                if j == 9:
+                    if counter > max:
+                        max = counter
+        return max
+    def maxVertical(self):
+        max = 0
+        for i in range(10):
+            counter = 0
+            for j in range(10):
+                if self.board[j][i] == 0.0:
+                    counter+=1
+                else:
+                    if counter > max:
+                        max = counter
+                    counter = 0
+                if j == 9:
+                    if counter > max:
+                        max = counter
+        return max
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))
@@ -1021,11 +1085,19 @@ def main():
     board.threeByThree((1,4))
     board.threeByThree((1, 7))
     board.threeByOne((1,9))
+    board.step4((1,1))
+    board.step3((8,1))
+    board.step2((1,8))
+    board.oneByFive((5,2))
+    board.oneByFive((6,7))
     print(board)
     print(board.getScore())
     board.updateBoard()
     print(board)
     print(board.getScore())
+    print(board.orphanSquares())
+    print(board.maxHorizontal())
+    print(board.maxVertical())
 
 if __name__ == "__main__":
     main()
