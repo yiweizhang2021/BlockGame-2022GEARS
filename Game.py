@@ -20,92 +20,219 @@ class Game:
     def getMoveIDs(self):
         return self.possibleMoves
     def checkLose(self):
-        results = []
-        for entry in self.possibleMoves:
-            entryResult = False
-            for i in range(10):
-                for j in range(10):
-                    if entry == 0:
-                        tempResult = self.board.checkThreeByThree((i,j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 1:
-                        tempResult = self.board.checkTwoByTwo((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 2:
-                        tempResult = self.board.checkTwoByOne((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 3:
-                        tempResult = self.board.checkThreeByOne((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 4:
-                        tempResult = self.board.checkFourByOne((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 5:
-                        tempResult = self.board.checkFiveByOne((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 6:
-                        tempResult = self.board.checkOneByOne((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 7:
-                        tempResult = self.board.checkOneByTwo((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 8:
-                        tempResult = self.board.checkOneByThree((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 9:
-                        tempResult = self.board.checkOneByFour((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 10:
-                        tempResult = self.board.checkOneByFive((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 11:
-                        tempResult = self.board.checkStep1((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 12:
-                        tempResult = self.board.checkStep2((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 13:
-                        tempResult = self.board.checkStep3((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 14:
-                        tempResult = self.board.checkStep4((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 15:
-                        tempResult = self.board.checkl1((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 16:
-                        tempResult = self.board.checkl2((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 17:
-                        tempResult = self.board.checkl3((i, j))
-                        if tempResult:
-                            entryResult = True
-                    elif entry == 18:
-                        tempResult = self.board.checkl4((i, j))
-                        if tempResult:
-                            entryResult = True
-            results.append(entryResult)
-        if True in results:
-            return False
-        else:
-            return True
+        done = False
+        entryResult = False
+        breakLoop = False
+        while (not entryResult) and (not done):
+            for entry in self.possibleMoves:
+                if breakLoop:
+                    break
+                for i in range(10):
+                    if breakLoop:
+                        break
+                    for j in range(10):
+                        if entry == 0:
+                            tempResult = self.board.checkThreeByThree((i,j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 1:
+                            tempResult = self.board.checkTwoByTwo((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 2:
+                            tempResult = self.board.checkTwoByOne((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 3:
+                            tempResult = self.board.checkThreeByOne((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 4:
+                            tempResult = self.board.checkFourByOne((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 5:
+                            tempResult = self.board.checkFiveByOne((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 6:
+                            tempResult = self.board.checkOneByOne((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 7:
+                            tempResult = self.board.checkOneByTwo((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 8:
+                            tempResult = self.board.checkOneByThree((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 9:
+                            tempResult = self.board.checkOneByFour((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 10:
+                            tempResult = self.board.checkOneByFive((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 11:
+                            tempResult = self.board.checkStep1((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 12:
+                            tempResult = self.board.checkStep2((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 13:
+                            tempResult = self.board.checkStep3((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 14:
+                            tempResult = self.board.checkStep4((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 15:
+                            tempResult = self.board.checkl1((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 16:
+                            tempResult = self.board.checkl2((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 17:
+                            tempResult = self.board.checkl3((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+                        elif entry == 18:
+                            tempResult = self.board.checkl4((i, j))
+                            if tempResult:
+                                entryResult = True
+                                breakLoop = True
+                                print(entry, i, j)
+            done = True
+        return not entryResult
+        # results = []
+        # for entry in self.possibleMoves:
+        #     entryResult = False
+        #     for i in range(10):
+        #         for j in range(10):
+        #             if entry == 0:
+        #                 tempResult = self.board.checkThreeByThree((i,j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 1:
+        #                 tempResult = self.board.checkTwoByTwo((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 2:
+        #                 tempResult = self.board.checkTwoByOne((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 3:
+        #                 tempResult = self.board.checkThreeByOne((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 4:
+        #                 tempResult = self.board.checkFourByOne((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 5:
+        #                 tempResult = self.board.checkFiveByOne((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 6:
+        #                 tempResult = self.board.checkOneByOne((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 7:
+        #                 tempResult = self.board.checkOneByTwo((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 8:
+        #                 tempResult = self.board.checkOneByThree((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 9:
+        #                 tempResult = self.board.checkOneByFour((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 10:
+        #                 tempResult = self.board.checkOneByFive((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 11:
+        #                 tempResult = self.board.checkStep1((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 12:
+        #                 tempResult = self.board.checkStep2((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 13:
+        #                 tempResult = self.board.checkStep3((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 14:
+        #                 tempResult = self.board.checkStep4((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 15:
+        #                 tempResult = self.board.checkl1((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 16:
+        #                 tempResult = self.board.checkl2((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 17:
+        #                 tempResult = self.board.checkl3((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #             elif entry == 18:
+        #                 tempResult = self.board.checkl4((i, j))
+        #                 if tempResult:
+        #                     entryResult = True
+        #     results.append(entryResult)
+        # if True in results:
+        #     return False
+        # else:
+        #     return True
     def printBoard(self):
         print(self.board)
 
@@ -217,7 +344,35 @@ class Game:
         self.move()
 def main():
     newGame = Game()
-    newGame.move()
+    board = newGame.board
+    board.twoByTwo((4, 5))
+    board.threeByThree((1, 1))
+    board.threeByThree((1, 4))
+    board.threeByThree((1, 7))
+    board.threeByOne((1, 9))
+    board.step4((1, 1))
+    board.step3((8, 1))
+    board.step2((1, 8))
+    board.oneByFive((5, 2))
+    board.oneByFive((6, 7))
+    print(board)
+    print(board.getScore())
+    board.updateBoard()
+    print(board)
+    print("Total orphan squares:", board.orphanSquares())
+    print("Maximum horizontal space:", board.maxHorizontal())
+    print("Maximum vertical space:", board.maxVertical())
+    print("Total squares:", board.totalSquares())
+    print("Empty rows:", board.emptyRows())
+    print("Empty columns:", board.emptyColumns())
+    print(newGame.checkLose())
+    sampleArr = [False, False]
+    boolArr = np.random.choice(sampleArr, size= (10,10))
+    print(board)
+    for i in range(10):
+        for j in range(10):
+            boolArr[i,j] = newGame.board.checkOneByFive((i,j))
+    print(boolArr)
     # newGame.place(1,(3,3))
     # newGame.printBoard()
 if __name__ == "__main__":

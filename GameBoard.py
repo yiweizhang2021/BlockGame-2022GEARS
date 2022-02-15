@@ -778,102 +778,111 @@ class GameBoard:
         try:
             for i in range(-1,2):
                 for j in range(-1,2):
+                    if i+middle[0] < 0 or j+middle[1] < 0:
+                        return False
                     if self.board[i+middle[0]][j+middle[1]] != 0.0:
                         return False
-                    else:
-                        return True
+            return True
         except IndexError:
-            return
+            return False
     def checkTwoByTwo(self, middle):
         try:
             for i in range(-1,1):
                 for j in range(-1,1):
+                    if i + middle[0] < 0 or j + middle[1] < 0:
+                        return False
                     if self.board[i+middle[0]][j+middle[1]] != 0.0:
                         return False
-                    else:
-                        return True
+            return True
         except IndexError:
-            return
+            return False
     def checkTwoByOne(self, middle):
         try:
             for i in range(-1,1):
+                if i + middle[0] < 0:
+                    return False
                 if self.board[middle[0]+i][middle[1]] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkThreeByOne(self, middle):
         try:
             for i in range(-1,2):
+                if i + middle[0] < 0:
+                    return False
                 if self.board[middle[0]+i][middle[1]] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkFourByOne(self, middle):
         try:
             for i in range(-2,2):
+                if i + middle[0] < 0:
+                    return False
                 if self.board[middle[0]+i][middle[1]] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkFiveByOne(self, middle):
         try:
             for i in range(-2,3):
+                if i + middle[0] < 0:
+                    return False
                 if self.board[middle[0]+i][middle[1]] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkOneByOne(self, middle):
         try:
             if self.board[middle[0]][middle[1]] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkOneByTwo(self, middle):
         try:
             for i in range(-1,1):
+                if i+middle[1] < 0:
+                    return False
                 if self.board[middle[0]][middle[1]+i] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkOneByThree(self, middle):
         try:
             for i in range(-1,2):
+                if i+middle[1] < 0:
+                    return False
                 if self.board[middle[0]][middle[1]+i] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkOneByFour(self, middle):
         try:
             for i in range(-2,2):
+                if i+middle[1] < 0:
+                    return False
                 if self.board[middle[0]][middle[1]+i] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkOneByFive(self, middle):
         try:
             for i in range(-2,3):
+                if i+middle[1] < 0:
+                    return False
                 if self.board[middle[0]][middle[1]+i] != 0.0:
                     return False
-                else:
-                    return True
+            return True
         except IndexError:
-            return
+            return False
     def checkStep1(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -887,10 +896,9 @@ class GameBoard:
             x,y = middle
             if self.board[x][y] != 0.0 or self.board[x+1][y] != 0.0 or self.board[x][y+1] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkStep2(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -902,12 +910,13 @@ class GameBoard:
         """
         try:
             x,y = middle
+            if x - 1 > 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x-1][y] != 0.0 or self.board[x][y+1] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkStep3(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -919,12 +928,13 @@ class GameBoard:
         """
         try:
             x,y = middle
+            if y - 1 < 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x+1][y] != 0.0 or self.board[x][y-1] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkStep4(self, middle):
         """
         Creates a "step" shape with the middle point at the center of the step
@@ -936,12 +946,13 @@ class GameBoard:
         """
         try:
             x,y = middle
+            if x - 1 < 0 or y - 1 < 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x-1][y] != 0.0 or self.board[x][y-1] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkl1(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -956,10 +967,9 @@ class GameBoard:
             x, y = middle
             if self.board[x][y] != 0.0 or self.board[x + 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or self.board[x + 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkl2(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -972,12 +982,13 @@ class GameBoard:
         """
         try:
             x, y = middle
+            if x - 2 < 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or self.board[x - 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkl3(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -990,12 +1001,13 @@ class GameBoard:
         """
         try:
             x, y = middle
+            if y - 2 < 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x + 1][y] != 0.0 or self.board[x][y - 1] != 0.0 or self.board[x + 2][y] != 0.0 or self.board[x][y - 2] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
     def checkl4(self, middle):
         """
         Creates an "L" with the middle point at the center of the L
@@ -1008,12 +1020,13 @@ class GameBoard:
         """
         try:
             x, y = middle
+            if x - 2 < 0 or y - 2 < 0:
+                return False
             if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y - 1] != 0.0 or self.board[x - 2][y] != 0.0 or self.board[x][y - 2] != 0.0:
                 return False
-            else:
-                return True
+            return True
         except IndexError:
-            return
+            return False
 
     # Features are below
     def orphanSquares(self):
