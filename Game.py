@@ -1,4 +1,4 @@
-import numpy as np, random
+import numpy as np, pandas as pd, random
 from GameBoard import GameBoard
 class Game:
     def __init__(self):

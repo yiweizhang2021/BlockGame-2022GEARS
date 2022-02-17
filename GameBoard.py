@@ -5,6 +5,7 @@ class GameBoard:
         self.score = 0
         self.openSpace = 0
         self.bestPath = []
+        self.orphanSquares()
     def __str__(self):
         fullString = ""
         fLine = "Score: " + str(self.score)+'\n'+"-\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t\n"
@@ -1113,7 +1114,7 @@ class GameBoard:
                 elif j == 9:
                     count+=1
         return count
-    def DFS(self, mask, i, j, visited, maxPath = 0):
+    def DFS(self, mask, i, j, visited):
         visited.append((i,j))
         if self.openSpace < len(visited):
             self.openSpace = len(visited)
@@ -1145,7 +1146,32 @@ class GameBoard:
                 if mask[i,j]:
                     self.DFS(mask,i,j, [])
         return self.openSpace
-
+    def newOrphanSquares(self, mask, i, j, visited):
+        visited.append((i, j))
+        if 1 > len(visited):
+            for x,y in visited:
+                mask[x,y]= False
+                self.orphanSquares = mask.sum()
+        value = mask[i, j]
+        if (0 > i) or (i > 10) or (0 > j) or (j > 10):
+            return
+        x = [1, 0, -1, 0]
+        y = [0, 1, 0, -1]
+        for a in range(4):
+            n = x[a] + i
+            m = y[a] + j
+            if (0 > n) or (n > 10) or (0 > m) or (m > 10):
+                return
+            if (not (n == i and m == j)) and (m > -1) and (m < 10) and (n > -1) and (n < 10) and mask[n, m] and (
+                    (n, m) not in visited):
+                return self.DFS(mask, n, m, visited)
+    def getOrphanSquares(self):
+        mask = self.board == 0
+        for i in range(10):
+            for j in range(10):
+                if mask[i, j]:
+                    self.newOrphanSquares(mask, i, j, [])
+        return self.orphanSquares()
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))
@@ -1169,6 +1195,7 @@ def main():
         falseArray[i,j] = True
     print(board)
     print(falseArray)
+    print(board.getOrphanSquares())
     # print("Total orphan squares:",board.orphanSquares())
     # print("Maximum horizontal space:",board.maxHorizontal())
     # print("Maximum vertical space:",board.maxVertical())
