@@ -1,4 +1,4 @@
-import numpy as np, pandas as pd, random
+import numpy as np, pandas as pd, random, time
 from GameBoard import GameBoard
 class Game:
     def __init__(self):
@@ -257,16 +257,34 @@ class Game:
     def startGame(self):
         self.move()
     def getPossibleStates(self):
-        states = {}
-        # Format: Dictionary where key = blockid+x+y (concatenating). Value = A tuple such that (block id, (location x, location y), # orphan squares, max horizontal space, max vertical space, total squares placed on the board, # empty rows, # empty columns, length of longest DFS path)
+        stateID = []
+        location = []
+        orphanSquares = []
+        maxHorizontal = []
+        maxVertical = []
+        totalSquares = []
+        emptyRows = []
+        emptyColumns = []
+        longestDFS = []
         for move in self.possibleMoves:
             for i in range(10):
                 for j in range(10):
                     tempBoard = self.getBoard()
                     tempBoard.placeBlock(move, (i,j))
                     key = str(move) + str(i) +str(j)
-                    states[key] = (move, (i,j), tempBoard.orphanSquares(), tempBoard.maxHorizontal(), tempBoard.maxVertical(), tempBoard.totalSquares(), tempBoard.emptyRows(), tempBoard.emptyColumns(), tempBoard.getOpenSpace())
-        return states
+                    stateID.append(key)
+                    location.append((i,j))
+                    orphanSquares.append(tempBoard.getOrphanSquares())
+                    maxHorizontal.append(tempBoard.maxHorizontal())
+                    maxVertical.append(tempBoard.maxVertical())
+                    totalSquares.append(tempBoard.totalSquares())
+                    emptyRows.append(tempBoard.emptyRows())
+                    emptyColumns.append(tempBoard.emptyColumns())
+                    longestDFS.append(tempBoard.getOpenSpace())
+        df = pd.DataFrame(list(zip(stateID,location,orphanSquares,maxHorizontal,maxVertical,totalSquares,emptyRows,emptyColumns,longestDFS)),
+            columns=["StateID", "Location", "OrphanSquares", "MaxHorizontal", "MaxVertical", "TotalSquares",
+                     "EmptyRows", "EmptyColumns", "LongestDFS"])
+        return df
 
 def main():
     newGame = Game()

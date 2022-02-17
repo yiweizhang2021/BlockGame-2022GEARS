@@ -5,7 +5,7 @@ class GameBoard:
         self.score = 0
         self.openSpace = 0
         self.bestPath = []
-        self.orphanSquares()
+        self.orphanSquares = 0
     def __str__(self):
         fullString = ""
         fLine = "Score: " + str(self.score)+'\n'+"-\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t\n"
@@ -1032,38 +1032,38 @@ class GameBoard:
             return False
 
     # Features are below
-    def orphanSquares(self):
-        count = 0
-        for i in range(10):
-            for j in range(10):
-                rightSide = False
-                leftSide = False
-                top = False
-                bottom = False
-                if i-1 < 1:
-                    top = True
-                if i+1 > 8:
-                    bottom = True
-                if j - 1 < 1:
-                    leftSide = True
-                if j + 1 > 8:
-                    rightSide = True
-                if top and leftSide:
-                    if self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
-                        count+=1
-                elif top and rightSide:
-                    if self.board[i + 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
-                        count+=1
-                elif bottom and leftSide:
-                    if self.board[i - 1][j] == 1.0 and self.board[i][j + 1] == 1.0:
-                        count+=1
-                elif bottom and rightSide:
-                    if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
-                        count+=1
-                else:
-                    if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0 and self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
-                        count+=1
-        return count
+    # def orphanSquares(self):
+    #     count = 0
+    #     for i in range(10):
+    #         for j in range(10):
+    #             rightSide = False
+    #             leftSide = False
+    #             top = False
+    #             bottom = False
+    #             if i-1 < 1:
+    #                 top = True
+    #             if i+1 > 8:
+    #                 bottom = True
+    #             if j - 1 < 1:
+    #                 leftSide = True
+    #             if j + 1 > 8:
+    #                 rightSide = True
+    #             if top and leftSide:
+    #                 if self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
+    #                     count+=1
+    #             elif top and rightSide:
+    #                 if self.board[i + 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
+    #                     count+=1
+    #             elif bottom and leftSide:
+    #                 if self.board[i - 1][j] == 1.0 and self.board[i][j + 1] == 1.0:
+    #                     count+=1
+    #             elif bottom and rightSide:
+    #                 if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0:
+    #                     count+=1
+    #             else:
+    #                 if self.board[i - 1][j] == 1.0 and self.board[i][j - 1] == 1.0 and self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:
+    #                     count+=1
+    #     return count
     def maxHorizontal(self):
         max = 0
         for i in range(10):
@@ -1119,7 +1119,7 @@ class GameBoard:
         if self.openSpace < len(visited):
             self.openSpace = len(visited)
             self.bestPath = visited
-            print("best path: ",visited)
+            #print("best path: ",visited)
         value = mask[i,j]
         if (0 > i) or (i > 10) or (0 > j) or (j > 10):
             return
@@ -1147,11 +1147,11 @@ class GameBoard:
                     self.DFS(mask,i,j, [])
         return self.openSpace
     def newOrphanSquares(self, mask, i, j, visited):
-        visited.append((i, j))
         if 1 > len(visited):
             for x,y in visited:
                 mask[x,y]= False
                 self.orphanSquares = mask.sum()
+        visited.append((i, j))
         value = mask[i, j]
         if (0 > i) or (i > 10) or (0 > j) or (j > 10):
             return
@@ -1171,7 +1171,7 @@ class GameBoard:
             for j in range(10):
                 if mask[i, j]:
                     self.newOrphanSquares(mask, i, j, [])
-        return self.orphanSquares()
+        return self.orphanSquares
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))
