@@ -1039,13 +1039,13 @@ class GameBoard:
                 leftSide = False
                 top = False
                 bottom = False
-                if i-1 < 0:
+                if i-1 < 1:
                     top = True
-                if i+1 > 9:
+                if i+1 > 8:
                     bottom = True
-                if j - 1 < 0:
+                if j - 1 < 1:
                     leftSide = True
-                if j + 1 > 9:
+                if j + 1 > 8:
                     rightSide = True
                 if top and leftSide:
                     if self.board[i+1][j] == 1.0 and self.board[i][j+1] == 1.0:

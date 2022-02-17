@@ -256,37 +256,50 @@ class Game:
             return self.board.l4(location)
     def startGame(self):
         self.move()
+    def getPossibleStates(self):
+        states = {}
+        # Format: Dictionary where key = blockid+x+y (concatenating). Value = A tuple such that (block id, (location x, location y), # orphan squares, max horizontal space, max vertical space, total squares placed on the board, # empty rows, # empty columns, length of longest DFS path)
+        for move in self.possibleMoves:
+            for i in range(10):
+                for j in range(10):
+                    tempBoard = self.getBoard()
+                    tempBoard.placeBlock(move, (i,j))
+                    key = str(move) + str(i) +str(j)
+                    states[key] = (move, (i,j), tempBoard.orphanSquares(), tempBoard.maxHorizontal(), tempBoard.maxVertical(), tempBoard.totalSquares(), tempBoard.emptyRows(), tempBoard.emptyColumns(), tempBoard.getOpenSpace())
+        return states
+
 def main():
     newGame = Game()
-    board = newGame.board
-    board.twoByTwo((4, 5))
-    board.threeByThree((1, 1))
-    board.threeByThree((1, 4))
-    board.threeByThree((1, 7))
-    board.threeByOne((1, 9))
-    board.step4((1, 1))
-    board.step3((8, 1))
-    board.step2((1, 8))
-    board.oneByFive((5, 2))
-    board.oneByFive((6, 7))
-    print(board)
-    print(board.getScore())
-    board.updateBoard()
-    print(board)
-    print("Total orphan squares:", board.orphanSquares())
-    print("Maximum horizontal space:", board.maxHorizontal())
-    print("Maximum vertical space:", board.maxVertical())
-    print("Total squares:", board.totalSquares())
-    print("Empty rows:", board.emptyRows())
-    print("Empty columns:", board.emptyColumns())
-    print(newGame.checkLose())
-    sampleArr = [False, False]
-    boolArr = np.random.choice(sampleArr, size= (10,10))
-    print(board)
-    for i in range(10):
-        for j in range(10):
-            boolArr[i,j] = newGame.board.checkOneByFive((i,j))
-    print(boolArr)
+    print(newGame.getPossibleStates())
+    # board = newGame.board
+    # board.twoByTwo((4, 5))
+    # board.threeByThree((1, 1))
+    # board.threeByThree((1, 4))
+    # board.threeByThree((1, 7))
+    # board.threeByOne((1, 9))
+    # board.step4((1, 1))
+    # board.step3((8, 1))
+    # board.step2((1, 8))
+    # board.oneByFive((5, 2))
+    # board.oneByFive((6, 7))
+    # print(board)
+    # print(board.getScore())
+    # board.updateBoard()
+    # print(board)
+    # print("Total orphan squares:", board.orphanSquares())
+    # print("Maximum horizontal space:", board.maxHorizontal())
+    # print("Maximum vertical space:", board.maxVertical())
+    # print("Total squares:", board.totalSquares())
+    # print("Empty rows:", board.emptyRows())
+    # print("Empty columns:", board.emptyColumns())
+    # print(newGame.checkLose())
+    # sampleArr = [False, False]
+    # boolArr = np.random.choice(sampleArr, size= (10,10))
+    # print(board)
+    # for i in range(10):
+    #     for j in range(10):
+    #         boolArr[i,j] = newGame.board.checkOneByFive((i,j))
+    # print(boolArr)
     # newGame.place(1,(3,3))
     # newGame.printBoard()
 if __name__ == "__main__":
