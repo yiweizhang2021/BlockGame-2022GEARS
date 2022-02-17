@@ -3,6 +3,8 @@ class GameBoard:
     def __init__(self):
         self.board = np.zeros((10, 10))
         self.score = 0
+        self.openSpace = 0
+        self.bestPath = []
     def __str__(self):
         fullString = ""
         fLine = "Score: " + str(self.score)+'\n'+"-\t0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t\n"
@@ -1111,6 +1113,39 @@ class GameBoard:
                 elif j == 9:
                     count+=1
         return count
+    def DFS(self, mask, i, j, visited, maxPath = 0):
+        visited.append((i,j))
+        if self.openSpace < len(visited):
+            self.openSpace = len(visited)
+            self.bestPath = visited
+            print("best path: ",visited)
+        value = mask[i,j]
+        if (0 > i) or (i > 10) or (0 > j) or (j > 10):
+            return
+        x = [1,0,-1,0]
+        y = [0,1,0,-1]
+        for a in range(4):
+            n = x[a]+i
+            m = y[a]+j
+            if (0 > n) or (n > 10) or (0 > m) or (m > 10):
+                return
+            if (not (n == i and m == j)) and (m > -1) and (m < 10) and (n > -1) and (n < 10) and mask[n, m] and (
+                    (n, m) not in visited):
+                return self.DFS(mask, n, m, visited)
+        # for n in range(i-1,i+2):
+        #     for m in range(j-1,j+2):
+        #         if (not (n==i and m==j)) and (m > -1) and (m < 10) and (n > -1) and (n < 10) and mask[n,m]  and ((n,m) not in visited):
+        #             print(visited)
+        #             return self.DFS(mask, n, m, visited)
+        #mask = self.board == 0
+    def getOpenSpace(self):
+        mask = self.board == 0
+        for i in range(10):
+            for j in range(10):
+                if mask[i,j]:
+                    self.DFS(mask,i,j, [])
+        return self.openSpace
+
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))
@@ -1127,12 +1162,19 @@ def main():
     print(board.getScore())
     board.updateBoard()
     print(board)
-    print("Total orphan squares:",board.orphanSquares())
-    print("Maximum horizontal space:",board.maxHorizontal())
-    print("Maximum vertical space:",board.maxVertical())
-    print("Total squares:",board.totalSquares())
-    print("Empty rows:",board.emptyRows())
-    print("Empty columns:",board.emptyColumns())
+    print(board.getOpenSpace())
+    falseArray = np.zeros((10,10))!=0
+    print(board.bestPath)
+    for i,j in board.bestPath:
+        falseArray[i,j] = True
+    print(board)
+    print(falseArray)
+    # print("Total orphan squares:",board.orphanSquares())
+    # print("Maximum horizontal space:",board.maxHorizontal())
+    # print("Maximum vertical space:",board.maxVertical())
+    # print("Total squares:",board.totalSquares())
+    # print("Empty rows:",board.emptyRows())
+    # print("Empty columns:",board.emptyColumns())
 
 if __name__ == "__main__":
     main()
