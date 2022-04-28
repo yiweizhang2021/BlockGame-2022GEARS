@@ -176,7 +176,7 @@ def startGame(gameInstance: Game):
 
         screen.fill(BLACK)
         scoreText = str(gameInstance.getBoard().getScore())
-        text = font.render('Score: ' + scoreText, True, GREEN, WHITE)
+        text = font.render('Score: ' + scoreText, True, GREEN, BLACK)
         screen.blit(text, textRect)
         for row in range(10):
             for column in range(10):
