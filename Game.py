@@ -3,6 +3,8 @@ from GameBoard import GameBoard
 class Game:
     def __init__(self):
         # 19
+        # Setting Random Seed for Player vs Bot
+        # random.seed(42)
         self.possibleMoves = [random.randint(0,18), random.randint(0,18), random.randint(0,18)]
         self.board = GameBoard()
         self.moves = self.getMoves()
@@ -36,115 +38,96 @@ class Game:
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 1:
                             tempResult = self.board.checkTwoByTwo((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 2:
                             tempResult = self.board.checkTwoByOne((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 3:
                             tempResult = self.board.checkThreeByOne((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 4:
                             tempResult = self.board.checkFourByOne((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 5:
                             tempResult = self.board.checkFiveByOne((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 6:
                             tempResult = self.board.checkOneByOne((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 7:
                             tempResult = self.board.checkOneByTwo((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 8:
                             tempResult = self.board.checkOneByThree((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 9:
                             tempResult = self.board.checkOneByFour((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 10:
                             tempResult = self.board.checkOneByFive((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 11:
                             tempResult = self.board.checkStep1((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 12:
                             tempResult = self.board.checkStep2((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 13:
                             tempResult = self.board.checkStep3((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 14:
                             tempResult = self.board.checkStep4((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 15:
                             tempResult = self.board.checkl1((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 16:
                             tempResult = self.board.checkl2((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 17:
                             tempResult = self.board.checkl3((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
                         elif entry == 18:
                             tempResult = self.board.checkl4((i, j))
                             if tempResult:
                                 entryResult = True
                                 breakLoop = True
-                                print(entry, i, j)
             done = True
         return not entryResult
     def printBoard(self):
