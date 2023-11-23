@@ -1,4 +1,5 @@
-import Game, pygame, os, random, numpy as np
+import Game, pygame, os, random, numpy as np, time
+#import pandas as pd
 def placeOptions(gameInstance: Game):
     grid1 = np.zeros((5,5))
     grid2 = np.zeros((5, 5))
@@ -86,6 +87,7 @@ def startGame(gameInstance: Game):
     WHITE = (255, 255, 255)
     GREEN = (0, 255, 0)
     RED = (255, 0, 0)
+    BLUE = (0,0,255)
 
     WIDTH = 36
     HEIGHT = 36
@@ -111,7 +113,7 @@ def startGame(gameInstance: Game):
     # Display score
     font = pygame.font.Font('freesansbold.ttf', 32)
 
-    text = font.render('Score: 0', True, GREEN, WHITE)
+    text = font.render('Score: 0', True, GREEN, BLACK)
 
     # create a rectangular object for the
     # text surface object
@@ -122,6 +124,39 @@ def startGame(gameInstance: Game):
 
     while not done:
         #selected = False
+        autoPlay = True
+        if autoPlay:
+            # df = gameInstance.getPossibleStates()
+            df = gameInstance.deepSearch(.05)
+            print(df)
+            evalSort = df.sort_values('eval', ascending=False)
+            if len(evalSort) == 0:
+                evalSort = gameInstance.getPossibleStates()
+            for i in range(len(evalSort)):
+                block = evalSort.iloc[i]['BlockID']
+                blockLocation = evalSort.iloc[i]['Location']
+                if gameInstance.place(block,blockLocation):
+                    gameInstance.update()
+                    gameInstance.possibleMoves.remove(block)
+                    time.sleep(.5)
+                    break
+            # id = df['eval'].idxmax()
+            # maxentry = df.iloc[df['eval'].idxmax()]
+            # print(maxentry)
+            # print(gameInstance.board)
+            # x, y = maxentry['Location']
+            # if gameInstance.place(maxentry['BlockID'], (x, y)):
+            #     gameInstance.update()
+            #     gameInstance.possibleMoves.remove(maxentry['BlockID'])
+            if len(gameInstance.possibleMoves) == 0:
+                gameInstance.updateMoves()
+            if gameInstance.checkLose() == True:
+                # time.sleep(25)
+                print("You have lost! Final score:",gameInstance.getBoard().getScore())
+                time.sleep(5)
+                done = True
+
+            placeOptions(gameInstance)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -158,7 +193,7 @@ def startGame(gameInstance: Game):
                         print(gameInstance.possibleMoves, id)
                         if gameInstance.place(id,(row,column)) and id in gameInstance.possibleMoves:
                             gameInstance.possibleMoves.remove(id)
-                            id == None
+                            id = None
                         if len(gameInstance.possibleMoves) == 0:
                             gameInstance.updateMoves()
                             id = None
@@ -173,6 +208,7 @@ def startGame(gameInstance: Game):
                     #gameInstance[row,column] = 1
                 except IndexError:
                     continue
+
 
         screen.fill(BLACK)
         scoreText = str(gameInstance.getBoard().getScore())

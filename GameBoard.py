@@ -28,6 +28,10 @@ class GameBoard:
         self.board[x,y] = value
     def printBoard(self):
         print(str(self))
+
+    def getval(self,x,y):
+        return self.board[x][y]
+
     def checkBoard(self):
         count = 0
         # Check rows
@@ -51,6 +55,38 @@ class GameBoard:
         else:
             self.score += count * 10
         return self.score
+
+
+    def checkfull(self):
+
+        # Check rows
+        fullRows = []
+        for i in range(10):
+            for j in range(10):
+                if self.board[i][j] != 1.0:
+                    break
+                elif j == 9:
+                    fullRows.append(i)
+        # Columns
+        fullColumns = []
+        for i in range(10):
+            for j in range(10):
+                if self.board[j][i] != 1.0:
+                    break
+                elif j == 9:
+                    fullColumns.append(i)
+
+        '''if(len(fullRows)>0 and len(fullColumns)==0):
+            return list(fullRows,fullColumns)
+        elif(len(fullColumns)>0 and len(fullRows)==0):
+            return 2
+        elif(len(fullColumns)>0 and len(fullRows)>0):
+            return 3
+        else:
+            return 0'''
+        return [fullRows,fullColumns]
+
+
     def updateBoard(self):
         count = 0
         # Check rows
@@ -86,7 +122,9 @@ class GameBoard:
             for i in fullColumns:
                 for j in range(10):
                     self.board[j][i] = 0
+
         return self
+
     def getBoard(self):
         return self.board
     def getScore(self):
@@ -373,8 +411,11 @@ class GameBoard:
             x, y = middle
             if x < 2 or y > 8:
                 return False
-            if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or \
-                    self.board[x - 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
+            try:
+                if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or \
+                        self.board[x - 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
+                    return False
+            except IndexError:
                 return False
             else:
                 self.board[x][y] = 1.0
@@ -459,7 +500,6 @@ class GameBoard:
             for j in range(-1, 2):
                 self.board[i+middle[0]][j+middle[1]] = 1.0
         self.score +=9
-        self.updateBoard()
         return True
     def twoByTwo(self, middle):
         for i in range(-1,1):
@@ -474,7 +514,7 @@ class GameBoard:
             for j in range(-1, 1):
                 self.board[i+middle[0]][j+middle[1]] = 1.0
         self.score +=4
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def twoByOne(self, middle):
         for i in range(-1,1):
@@ -487,7 +527,7 @@ class GameBoard:
         for i in range(-1, 1):
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 2
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def threeByOne(self, middle):
         for i in range(-1,2):
@@ -500,7 +540,7 @@ class GameBoard:
         for i in range(-1, 2):
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def fourByOne(self, middle):
         for i in range(-2,2):
@@ -513,7 +553,7 @@ class GameBoard:
         for i in range(-2, 2):
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 4
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def fiveByOne(self, middle):
         for i in range(-2,3):
@@ -526,14 +566,14 @@ class GameBoard:
         for i in range(-2, 3):
             self.board[middle[0] + i][middle[1]] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def oneByOne(self, middle):
         if self.board[middle[0]][middle[1]] != 0.0:
             return False
         self.board[middle[0]][middle[1]] = 1.0
         self.score += 1
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def oneByTwo(self, middle):
         for i in range(-1,1):
@@ -546,7 +586,7 @@ class GameBoard:
         for i in range(-1, 1):
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 2
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def oneByThree(self, middle):
         for i in range(-1,2):
@@ -559,7 +599,7 @@ class GameBoard:
         for i in range(-1, 2):
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def oneByFour(self, middle):
         for i in range(-2,2):
@@ -572,7 +612,7 @@ class GameBoard:
         for i in range(-2, 2):
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 4
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def oneByFive(self, middle):
         for i in range(-2,3):
@@ -585,7 +625,7 @@ class GameBoard:
         for i in range(-2,3):
             self.board[middle[0]][middle[1]+i] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def step1(self, middle):
         """
@@ -606,7 +646,7 @@ class GameBoard:
             self.board[x + 1][y] = 1.0
             self.board[x][y + 1] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def step2(self, middle):
         """
@@ -627,7 +667,7 @@ class GameBoard:
             self.board[x -1][y] = 1.0
             self.board[x][y + 1] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def step3(self, middle):
         """
@@ -648,7 +688,7 @@ class GameBoard:
             self.board[x + 1][y] = 1.0
             self.board[x][y - 1] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def step4(self, middle):
         """
@@ -669,7 +709,7 @@ class GameBoard:
             self.board[x - 1][y] = 1.0
             self.board[x][y - 1] = 1.0
         self.score += 3
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def l1(self, middle):
         """
@@ -693,7 +733,7 @@ class GameBoard:
             self.board[x + 2][y] = 1.0
             self.board[x][y + 2] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def l2(self, middle):
         """
@@ -708,7 +748,10 @@ class GameBoard:
         x, y = middle
         if x < 2 or y > 8:
             return False
-        if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or self.board[x - 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
+        try:
+            if self.board[x][y] != 0.0 or self.board[x - 1][y] != 0.0 or self.board[x][y + 1] != 0.0 or self.board[x - 2][y] != 0.0 or self.board[x][y + 2] != 0.0:
+                return False
+        except IndexError:
             return False
         else:
             self.board[x][y] = 1.0
@@ -717,7 +760,7 @@ class GameBoard:
             self.board[x - 2][y] = 1.0
             self.board[x][y + 2] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def l3(self, middle):
         """
@@ -741,7 +784,7 @@ class GameBoard:
             self.board[x + 2][y] = 1.0
             self.board[x][y - 2] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
     def l4(self, middle):
         """
@@ -765,7 +808,7 @@ class GameBoard:
             self.board[x - 2][y] = 1.0
             self.board[x][y - 2] = 1.0
         self.score += 5
-        self.updateBoard()
+        #self.updateBoard()
         return True
 
 
@@ -1105,6 +1148,27 @@ class GameBoard:
                 elif j == 9:
                     count+=1
         return count
+
+    def emptyRowsid(self):
+        emptyRowslist=[]
+        for i in range(10):
+            for j in range(10):
+                if self.board[i][j] == 1.0:
+                    break
+                elif j == 9:
+                    emptyRowslist.append(i)
+        return emptyRowslist
+
+    def emptyColumnid(self):
+        emptyColumnlist = []
+        for j in range(10):
+            for i in range(10):
+                if self.board[i][j] == 1.0:
+                    break
+                elif i == 9:
+                    emptyColumnlist.append(j)
+        return emptyColumnlist
+
     def emptyColumns(self):
         count = 0
         for i in range(10):
@@ -1114,6 +1178,41 @@ class GameBoard:
                 elif j == 9:
                     count+=1
         return count
+
+    def rowtransition(self):
+        rtransition = 0
+        for i in range(10):
+            for j in range(9):
+                if(self.board[i][j]+self.board[i][j+1] == 1.0):
+                    rtransition+=1
+        return rtransition
+
+    def coltransition(self):
+        ctransition = 0
+        for j in range(10):
+            for i in range(9):
+                if(self.board[i][j]+self.board[i+1][j] == 1.0):
+                    ctransition+=1
+        return ctransition
+
+    def consecutiveblock(self):
+        maxconsecutive = 0
+        for i in range(10):
+            consecutive = 0
+            for j in range(10):
+                if(self.board[i][j]==1.0):
+                    consecutive+=1
+                    if (consecutive > maxconsecutive):
+                        maxconsecutive = consecutive
+                else:
+                    if(consecutive>maxconsecutive):
+                        maxconsecutive = consecutive
+                    consecutive = 0
+        return maxconsecutive
+
+    #def erodecontribution(self):
+
+
     def DFS(self, mask, i, j, visited):
         visited.append((i,j))
         if self.openSpace < len(visited):
@@ -1172,6 +1271,35 @@ class GameBoard:
                 if mask[i, j]:
                     self.newOrphanSquares(mask, i, j, [])
         return self.orphanSquares
+    def possiblePlaces(self):
+        total = 0
+        functionList = [self.checkThreeByThree,
+                        self.checkTwoByTwo,
+                        self.checkTwoByOne,
+                        self.checkThreeByOne,
+                        self.checkFourByOne,
+                        self.checkFiveByOne,
+                        self.checkOneByOne,
+                        self.checkOneByTwo,
+                        self.checkOneByThree,
+                        self.checkOneByFour,
+                        self.checkOneByFive,
+                        self.checkStep1,
+                        self.checkStep2,
+                        self.checkStep3,
+                        self.checkStep4,
+                        self.checkl1,
+                        self.checkl2,
+                        self.checkl3,
+                        self.checkl4]
+        for i in range(10):
+            for j in range(10):
+                for f in functionList:
+                    if f((i,j)):
+                        total+=1
+                        functionList.remove(f)
+        return total
+
 def main():
     board = GameBoard()
     board.twoByTwo((4,5))

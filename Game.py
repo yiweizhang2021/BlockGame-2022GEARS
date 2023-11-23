@@ -1,9 +1,9 @@
-import numpy as np, pandas as pd, random, time
+import numpy as np, pandas as pd, random, time, copy
 from GameBoard import GameBoard
 class Game:
     def __init__(self):
         # 19
-        # Setting Random Seed for Player vs Bot
+        # Setting Random Seed for People vs Bot
         # random.seed(42)
         self.possibleMoves = [random.randint(0,18), random.randint(0,18), random.randint(0,18)]
         self.board = GameBoard()
@@ -22,114 +22,118 @@ class Game:
     def getMoveIDs(self):
         return self.possibleMoves
     def checkLose(self):
-        done = False
-        entryResult = False
-        breakLoop = False
-        while (not entryResult) and (not done):
-            for entry in self.possibleMoves:
-                if breakLoop:
-                    break
-                for i in range(10):
-                    if breakLoop:
-                        break
-                    for j in range(10):
-                        if entry == 0:
-                            tempResult = self.board.checkThreeByThree((i,j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 1:
-                            tempResult = self.board.checkTwoByTwo((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 2:
-                            tempResult = self.board.checkTwoByOne((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 3:
-                            tempResult = self.board.checkThreeByOne((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 4:
-                            tempResult = self.board.checkFourByOne((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 5:
-                            tempResult = self.board.checkFiveByOne((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 6:
-                            tempResult = self.board.checkOneByOne((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 7:
-                            tempResult = self.board.checkOneByTwo((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 8:
-                            tempResult = self.board.checkOneByThree((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 9:
-                            tempResult = self.board.checkOneByFour((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 10:
-                            tempResult = self.board.checkOneByFive((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 11:
-                            tempResult = self.board.checkStep1((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 12:
-                            tempResult = self.board.checkStep2((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 13:
-                            tempResult = self.board.checkStep3((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 14:
-                            tempResult = self.board.checkStep4((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 15:
-                            tempResult = self.board.checkl1((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 16:
-                            tempResult = self.board.checkl2((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 17:
-                            tempResult = self.board.checkl3((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-                        elif entry == 18:
-                            tempResult = self.board.checkl4((i, j))
-                            if tempResult:
-                                entryResult = True
-                                breakLoop = True
-            done = True
-        return not entryResult
+        # done = False
+        # entryResult = False
+        # breakLoop = False
+        # while (not entryResult) and (not done):
+        #     for entry in self.possibleMoves:
+        #         if breakLoop:
+        #             break
+        #         for i in range(10):
+        #             if breakLoop:
+        #                 break
+        #             for j in range(10):
+        #                 if entry == 0:
+        #                     tempResult = self.board.checkThreeByThree((i,j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 1:
+        #                     tempResult = self.board.checkTwoByTwo((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 2:
+        #                     tempResult = self.board.checkTwoByOne((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 3:
+        #                     tempResult = self.board.checkThreeByOne((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 4:
+        #                     tempResult = self.board.checkFourByOne((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 5:
+        #                     tempResult = self.board.checkFiveByOne((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 6:
+        #                     tempResult = self.board.checkOneByOne((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 7:
+        #                     tempResult = self.board.checkOneByTwo((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 8:
+        #                     tempResult = self.board.checkOneByThree((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 9:
+        #                     tempResult = self.board.checkOneByFour((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 10:
+        #                     tempResult = self.board.checkOneByFive((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 11:
+        #                     tempResult = self.board.checkStep1((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 12:
+        #                     tempResult = self.board.checkStep2((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 13:
+        #                     tempResult = self.board.checkStep3((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 14:
+        #                     tempResult = self.board.checkStep4((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 15:
+        #                     tempResult = self.board.checkl1((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 16:
+        #                     tempResult = self.board.checkl2((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 17:
+        #                     tempResult = self.board.checkl3((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #                 elif entry == 18:
+        #                     tempResult = self.board.checkl4((i, j))
+        #                     if tempResult:
+        #                         entryResult = True
+        #                         breakLoop = True
+        #     done = True
+        # return not entryResult
+        if len(self.getPossibleStates()) > 0:
+            return False
+        else:
+            return True
     def printBoard(self):
         print(self.board)
 
@@ -197,6 +201,7 @@ class Game:
         self.possibleMoves = [random.randint(0,18), random.randint(0,18), random.randint(0,18)]
     def update(self):
         self.board = self.board.updateBoard()
+
     def place(self, blockID, location):
         i = blockID
         if i == 0:
@@ -237,8 +242,11 @@ class Game:
             return self.board.l3(location)
         elif i == 18:
             return self.board.l4(location)
+
     def startGame(self):
         self.move()
+
+
     def getPossibleStates(self):
         stateID = []
         location = []
@@ -248,36 +256,140 @@ class Game:
         totalSquares = []
         emptyRows = []
         emptyColumns = []
+        rawtransitionlist = []
+        coltransitionlist = []
+        consecutivelist = []
         longestDFS = []
+        eval = []
+        moves = []
+        scores = []
+        possiblePlaces = []
+        parentStates = []
         for move in self.possibleMoves:
             for i in range(10):
                 for j in range(10):
-                    tempBoard = self.getBoard()
-                    tempBoard.placeBlock(move, (i,j))
+                    contribution = 0
+                    tempBoard = copy.deepcopy(self)
+                    if not tempBoard.place(move, (i,j)):
+                        continue
                     key = str(move) + str(i) +str(j)
                     stateID.append(key)
+                    moves.append(move)
                     location.append((i,j))
-                    orphanSquares.append(tempBoard.getOrphanSquares())
-                    maxHorizontal.append(tempBoard.maxHorizontal())
-                    maxVertical.append(tempBoard.maxVertical())
-                    totalSquares.append(tempBoard.totalSquares())
-                    emptyRows.append(tempBoard.emptyRows())
-                    emptyColumns.append(tempBoard.emptyColumns())
-                    longestDFS.append(tempBoard.getOpenSpace())
-        df = pd.DataFrame(list(zip(stateID,location,orphanSquares,maxHorizontal,maxVertical,totalSquares,emptyRows,emptyColumns,longestDFS)),
-            columns=["StateID", "Location", "OrphanSquares", "MaxHorizontal", "MaxVertical", "TotalSquares",
-                     "EmptyRows", "EmptyColumns", "LongestDFS"])
+                    # orphanNum = tempBoard.getOrphanSquares()
+                    # orphanSquares.append(orphanNum)
+
+                    flag = tempBoard.board.checkfull()
+
+                    tempBoard.board.updateBoard()
+                    if(len(flag[0])>0):
+                        for fullid in flag[0]:
+                            for j in range(10):
+                                if (self.board.getval(fullid, j) == 0):
+                                    contribution += 1
+                    if (len(flag[1]) > 0):
+                        for fullid2 in flag[1]:
+                            for i in range(10):
+                                if (self.board.getval(i, fullid2) == 0):
+                                    contribution += 1
+
+                    #tempBoard.board.updateBoard()
+                    score = tempBoard.board.getScore() - self.board.getScore()
+                    scores.append(score)
+                    places = self.board.possiblePlaces()
+                    possiblePlaces.append(places)
+                    maxHNum = tempBoard.board.maxHorizontal()
+                    maxHorizontal.append(maxHNum)
+                    maxVNum = tempBoard.board.maxVertical()
+                    maxVertical.append(maxVNum)
+                    numFull = tempBoard.board.totalSquares()
+                    totalSquares.append(numFull)
+                    numREmpty = tempBoard.board.emptyRows()
+                    emptyRows.append(numREmpty)
+                    numCEmpty = tempBoard.board.emptyColumns()
+                    emptyColumns.append(numCEmpty)
+
+                    numrawtransition = tempBoard.board.rowtransition()
+                    rawtransitionlist.append(numrawtransition)
+                    numcoltransition = tempBoard.board.coltransition()
+                    coltransitionlist.append(numcoltransition)
+
+                    numconsecutive = tempBoard.board.consecutiveblock()
+                    consecutivelist.append(numconsecutive)
+
+                    eval.append((places**2)/25+9*contribution-numrawtransition-numcoltransition + numREmpty*3 + numCEmpty*3 + (score*2)+(abs(i-5)+abs(j-5))/3)
+                    parentStates.append((move,(i,j)))
+        df = pd.DataFrame(list(zip(stateID, moves, location, possiblePlaces, scores, maxHorizontal, maxVertical, totalSquares, emptyRows,
+                emptyColumns, eval, parentStates)),
+                          columns=["StateID", "BlockID", "Location", "PossiblePlaces","Score","MaxHorizontal", "MaxVertical",
+                                   "TotalSquares",
+                                   "EmptyRows", "EmptyColumns", "eval", "ParentStates"])
+        # df = pd.DataFrame(list(zip(stateID, moves, location,orphanSquares,maxHorizontal,maxVertical,totalSquares,emptyRows,emptyColumns,longestDFS,eval)),
+        #     columns=["StateID", "BlockID","Location", "OrphanSquares", "MaxHorizontal", "MaxVertical", "TotalSquares",
+        #              "EmptyRows", "EmptyColumns", "LongestDFS","eval"])
         return df
+    def expandState(self, state):
+        newGame = copy.deepcopy(self)
+        newGame.place(state['BlockID'],state['Location'])
+        df = newGame.getPossibleStates()
+        for index, row in df.iterrows():
+            row['ParentStates'] = row['ParentStates'] + state['ParentStates']
+
+        # df['ParentStates'] = df['ParentStates'] +state['ParentStates']
+        return df
+
+    def deepSearch(self, percentage, depth = 2):
+        df = self.getPossibleStates()
+
+        # depth-=1
+        twoDeep = pd.DataFrame(columns=["StateID", "BlockID", "Location", "PossiblePlaces","Score","MaxHorizontal", "MaxVertical","TotalSquares","EmptyRows", "EmptyColumns", "eval", "ParentStates"])
+        for i in range(depth):
+            top = max(int(len(df)*percentage),10)
+            topPercent = df.iloc[:top]
+            twoDeep = twoDeep[0:0]
+            for index, row in topPercent.iterrows():
+                twoDeep = pd.concat([twoDeep, self.expandState(row)])
+            df = twoDeep
+            print(df)
+
+        # twoDeep = pd.DataFrame()
+        # twoDeep = topPercent
+
+        #     for entry in range(len(topPercent)):
+        #         tempBoard = self
+        #         for state in newdf["ParentStates"]:
+        #             if len(state) !=0:
+        #                 if tempBoard.place(topPercent.iloc[i]["BlockID"],topPercent.iloc[i]["Location"]):
+        #                     tempBoard.update()
+        #                     tempBoard.possibleMoves.remove(topPercent.iloc[i]["BlockID"])
+        #                     continue
+        #                 else:
+        #                     continue
+        #                     # entry['eval'] = 0
+        #             else:
+        #                 state.append(topPercent.iloc[entry])
+        #         newPossibleStates = tempBoard.getPossibleStates()
+        #         newdf = pd.concat([newdf, newPossibleStates],axis=0)
+        #         # print(tempBoard.getPossibleStates())
+        # for i in range(len(newdf)):
+        #     decay = .5
+        #     for j in range(len(newdf.iloc[i]["ParentStates"])):
+        #         newDecay = decay**j
+        #         newdf.at[i,'eval'] = newdf.iloc[i]['eval'] +newdf.iloc[i]["ParentStates"][0].loc['eval']*newDecay
+        return twoDeep
+        # return newdf
+
 
 def main():
     newGame = Game()
-    print(newGame.getPossibleStates())
-    # board = newGame.board
-    # board.twoByTwo((4, 5))
-    # board.threeByThree((1, 1))
-    # board.threeByThree((1, 4))
-    # board.threeByThree((1, 7))
-    # board.threeByOne((1, 9))
+
+    board = newGame.board
+    board.twoByTwo((4, 5))
+    board.threeByThree((1, 1))
+    board.threeByThree((1, 4))
+    board.threeByThree((1, 7))
+    board.threeByOne((1, 9))
+    print(newGame.deepSearch(.01))
     # board.step4((1, 1))
     # board.step3((8, 1))
     # board.step2((1, 8))
